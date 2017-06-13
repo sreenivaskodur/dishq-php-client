@@ -4,8 +4,6 @@ include "base.php";
 // $url = "order/add/";
 $url = "dish/";
 
-
-
 // if($_SERVER['REQUEST_METHOD'] == 'POST'){
 //     $data = json_decode(file_get_contents('php://input'), true);
 //     print_r($data['user_id']);
