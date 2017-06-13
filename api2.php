@@ -1,30 +1,26 @@
 <?php
+//This is for get method API's
+
 include "base.php";
 
-$dishq = new \dishqAPI\Dishq("dish/", "json");
+// $url = "order/add/";
+$url = "dish/";
 
-
-    if(isset($_GET[''])){
-      $details = $dishq->get($url);
-      if($details){
+if($_SERVER['REQUEST_METHOD'] == 'GET'){
+  $dishq = new \dishqAPI\Dishq($url, "json");
+    $details = $dishq->get($data);
+    if($details){
         print_r($details);
-      }else{
-        $error->message = "Bad get request";
-        $error->response = "Error";
-        echo json_encode($error);
-      }
-    }else if($_POST['']){
-      $data = $_POST[''];
-      $details = $dishq->post($data);
-      if($details){
-        print_r($details);
-      }else{
-        $error->message = "Bad post request";
-        $error->response = "Error";
-        echo json_encode($error);
-      }
     }else{
-      $error->message = "Request method not mentioned";
+      $error = new STDClass();
+      $error->message = "Please check Order details in your request JSON";
       $error->response = "Error";
       echo json_encode($error);
     }
+
+}else{
+  $error = new STDClass();
+  $error->message = "Bad GET request";
+  $error->response = "Error";
+  echo json_encode($error);
+}

@@ -38,9 +38,13 @@ class Dishq
      * @return string Response from the API
      **/
     public function post($data){
-          $this->cleanJSON($data);
-        $data = $this->cleanInputs($data);
-        return $this->sendRequest($this->api_base, fasle,$data);
+        if($this->isCleanJSON($data)){
+          $data = $this->cleanInputs($data);
+          return $this->sendRequest($this->api_base, fasle,$data);
+        }else{
+          return false;
+        }
+
 
     }
 
@@ -74,11 +78,15 @@ class Dishq
 
 
 
-    
-    private function cleanJSON($data){
-    $manage = json_encode($data['order_details'],true);
-    $newmanage = json_decode($manage);
 
+    private function isCleanJSON($data){
+
+      foreach ($data['order_details'] as $value){
+        if(!isset($value['dish_id']) || empty($value['dish_id']) || !isset($value['quantity']) || empty($value['quantity'])){
+          return false;
+        }
+      }
+      return true;
     }
 
 

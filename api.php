@@ -1,18 +1,11 @@
 <?php
+//This is for post method API's
 include "base.php";
 
 // $url = "order/add/";
 $url = "dish/";
 
-// if($_SERVER['REQUEST_METHOD'] == 'POST'){
-//     $data = json_decode(file_get_contents('php://input'), true);
-//     print_r($data['user_id']);
-// }else{
-//   $error = new STDClass();
-//   $error->message = "Bad post request";
-//   $error->response = "Error";
-//   echo json_encode($error);
-// }
+
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
   $data = json_decode(file_get_contents('php://input'), true);
@@ -40,7 +33,7 @@ foreach ($required_fields as $field) {
         print_r($details);
     }else{
       $error = new STDClass();
-      $error->message = "Bad post request";
+      $error->message = "Please check Order details in your request JSON";
       $error->response = "Error";
       echo json_encode($error);
     }
